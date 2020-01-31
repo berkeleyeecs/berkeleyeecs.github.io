@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script>
+		function encodeBase64() {
+			var toEncodeString = document.getElementById("initial").value;
+			document.getElementById("output").style.visibility = "visible";
+			document.getElementById("processed").innerText = btoa(toEncodeString);
+		}
+
+		function decodeBase64() {
+			var toEncodeString = document.getElementById("initial").value;
+			try {
+				document.getElementById("output").style.visibility = "visible";
+				document.getElementById("processed").innerText = atob(toEncodeString);
+			} catch (err) {
+				document.getElementById("output").style.visibility = "hidden";
+				swal({
+					title: "Please enter a valid value!"
+				});
+			}
+		}
+
+		function rot47() {
+			var toEncodeString = document.getElementById("initial").value;
+			document.getElementById("output").style.visibility = "visible";
+			document.getElementById("processed").innerText = r(toEncodeString);
+		}
+
+		function r(a, b) {
+			return ++b ? String.fromCharCode((a = a.charCodeAt() + 47, a > 126 ? a - 94 : a)) : a.replace(/[^ ]/g, r);
+		}
+	</script>
+	<style>
+		#initial {
+			width: 45%;
+			padding: 20px 20px;
+			margin: 20px 20px;
+			text-align: center;
+			display: inline-block;
+			border: 5px solid #ccc;
+			border-radius: 40px;
+			box-sizing: brder-box;
+			font-size: 24px;
+			cursor: pointer;
+		}
+
+		.button {
+			background-color: lightskyblue;
+			border: none;
+			color: black;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 40px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body style="padding: 10% 5%;">
+	<div align="center">
+		<h1>Encode/Decode of Base64/ROT47</h1>
+		<h2>
+			Initial Value:
+			<div>
+				<input type="text" id="initial">
+			</div>
+		</h2>
+		<div>
+			<input type="button" class="button" onclick="encodeBase64()" value="Encode Base64">
+			<input type="button" class="button" onclick="decodeBase64()" value="Decode Base64">
+			<input type="button" class="button" onclick="rot47()" value="En/Decode ROT47">
+
+		</div>
+		<h2 id="output" style="visibility: hidden;">
+			Processed Value is
+			<br>
+			<div>
+				<span id="processed" style="color:blue"></span>
+			</div>
+		</h2>
+	</div>
+
+</body>
+
+</html>
